@@ -1,0 +1,5 @@
+example_id                                        | status | run_time        |
+------------------------------------------------- | ------ | --------------- |
+./spec/tts_die_generator/die_image_spec.rb[1:1:1] | passed | 0.00702 seconds |
+./spec/tts_die_generator/die_image_spec.rb[1:1:2] | passed | 0.00485 seconds |
+./spec/tts_die_generator_spec.rb[1:1]             | passed | 0.00236 seconds |

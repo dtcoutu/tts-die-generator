@@ -12,44 +12,35 @@ module TtsDieGenerator
 
     TEMPLATE_DIR = "lib/templates"
 
-    DIE_SIDE_MAPPING = {
-      4 => FourSided,
-      6 => SixSided,
-      8 => EightSided,
-      10 => TenSided,
-      12 => TwelveSided,
-      20 => TwentySided
-    }.freeze
-
     class << self
       def create(sides)
-        die_class = determine_die_class(sides.count)
+        die_class = die_class(sides.count)
         die_class.new(sides)
       end
 
-      def determine_die_class(size)
-        die_class = DIE_SIDE_MAPPING[size]
+      def die_class(size)
+        die_class = subclasses.find { _1.expected_sides == size }
 
         raise InvalidDie, size if die_class.nil?
 
         die_class
       end
+
+      def positions
+        raise MissingImplementation
+      end
+
+      def pointsize
+        raise MissingImplementation
+      end
+
+      def expected_sides
+        positions.count
+      end
     end
 
     def image_source
       raise MissingImplementation
-    end
-
-    def positions
-      raise MissingImplementation
-    end
-
-    def pointsize
-      raise MissingImplementation
-    end
-
-    def expected_sides
-      positions.count
     end
 
     def image_resize(_image)
@@ -60,7 +51,7 @@ module TtsDieGenerator
       white_background
 
       sides.each_with_index do |side, index|
-        position = positions[index]
+        position = self.class.positions[index]
 
         handle_side(position, side)
       end

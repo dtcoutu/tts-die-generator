@@ -6,11 +6,12 @@ module TtsDieGenerator
   # Provides base logic for creating die image with given sides.
   class DieImage
     class MissingImplementation < StandardError; end
+    class InvalidDie < StandardError; end
 
     attr_reader :sides, :test
     attr_accessor :die_image
 
-    TEMPLATE_DIR = "lib/templates"
+    TEMPLATE_DIR = "#{Gem.loaded_specs["tts_die_generator"].gem_dir}/lib/templates".freeze
 
     class << self
       def create(sides)

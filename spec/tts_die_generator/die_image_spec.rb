@@ -10,7 +10,7 @@ RSpec.describe TtsDieGenerator::DieImage do
     end
 
     it "raises error when sides do not match die size" do
-      expect { TtsDieGenerator::DieImage.create(%w[1 2 3]) }.to raise_error(InvalidDie)
+      expect { TtsDieGenerator::DieImage.create(%w[1 2 3]) }.to raise_error(TtsDieGenerator::DieImage::InvalidDie)
     end
   end
 end
